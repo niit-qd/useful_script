@@ -23,13 +23,13 @@ echo %envlib%
 
 call "%envlib%" :SetVar JAVA_HOME "C:\Program Files\Java\jdk1.8.0_391" system
 :: 注册表中的环境变量此时无法直接获取，所以从当前环境中直接取值。但是不要使用引号，否则对比值存在引号导致无法在`:AddPath`中去重。
-set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_391
+set "JAVA_HOME=C:\Program Files\Java\jdk1.8.0_391"
 call "%envlib%" :AddPath "%%JAVA_HOME%%\bin" system 0
 
 @REM 这里最好使用`%%`代替`%`来引用变量；无论使用哪种方式，使用该脚本设置环境变量之后，都是解析之后的值，可能和后期的代码继续调用被解析有关。
 call "%envlib%" :SetVar ANDROID_HOME "%LOCALAPPDATA%\Android\Sdk" user
 :: 注册表中的环境变量此时无法直接获取，所以从当前环境中直接取值。但是不要使用引号，否则对比值存在引号导致无法在`:AddPath`中去重。
-set ANDROID_HOME=%LOCALAPPDATA%\Android\Sdk
+set "ANDROID_HOME=%LOCALAPPDATA%\Android\Sdk"
 call "%envlib%" :AddPath "%%ANDROID_HOME%%\platform-tools" user
 call "%envlib%" :AddPath "%%ANDROID_HOME%%\emulator" user
 call "%envlib%" :AddPath "%%ANDROID_HOME%%\build-tools\37.0.0" user

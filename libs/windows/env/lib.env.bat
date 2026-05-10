@@ -56,18 +56,18 @@ if /i "!varScope!"=="system" (
 )
 goto :eof
 
-:: ==================== PATH 专用写入（永不卡死） ====================
+:: ==================== PATH 专用写入（使用PowerShell避免分号问题） ====================
 :WritePath
 echo ========== :WritePath ==========
 set "pathValue=%~1"
 set "scope=%~2"
 
-@REM if /i "!scope!"=="system" (
-@REM     powershell -Command "[Environment]::SetEnvironmentVariable('PATH','!pathValue!','Machine')" >nul 2>&1
-@REM ) else (
-@REM     powershell -Command "[Environment]::SetEnvironmentVariable('PATH','!pathValue!','User')" >nul 2>&1
-@REM )
-call :SetVar PATH "!pathValue!" !scope!
+if /i "!scope!"=="system" (
+    powershell -Command "[Environment]::SetEnvironmentVariable('PATH','!pathValue!','Machine')" >nul 2>&1
+) else (
+    powershell -Command "[Environment]::SetEnvironmentVariable('PATH','!pathValue!','User')" >nul 2>&1
+)
+echo [!scope!变量] PATH 已更新
 goto :eof
 
 :: ==================== 函数2：PATH 强制按位置重插（新版规则） ====================
