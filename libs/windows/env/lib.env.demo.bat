@@ -35,6 +35,8 @@ call "%envlib%" :AddPath "%%ANDROID_HOME%%\emulator" user
 call "%envlib%" :AddPath "%%ANDROID_HOME%%\build-tools\37.0.0" user
 
 call "%envlib%" :SetVar MAVEN_HOME "D:\apache-maven-3.9.7" user
+:: 注册表中的环境变量此时无法直接获取，所以从当前环境中直接取值。但是不要使用引号，否则对比值存在引号导致无法在`:AddPath`中去重。
+set "MAVEN_HOME=D:\apache-maven-3.9.7"
 call "%envlib%" :AddPath "!MAVEN_HOME!\bin" user 2
 
 call "%envlib%" :AddPath "D:\NodeJS" system
